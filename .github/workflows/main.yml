@@ -1,0 +1,33 @@
+name: Build & Deploy Spring app
+
+on:
+  push: # When to Trigger pipeline
+    branches: # On which branch to trigger
+      - main
+
+jobs: # Set of Steps that execute on same runner
+  build-deploy:
+    name: Build and Deploy Spring Boot
+    runs-on: ubuntu-latest # where you want to run the actions on
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # checkout the code from repo to runner
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with: # parameters
+          distribution: 'corretto'
+          java-version: 17
+
+      # run test
+      - name: Unit Tests
+        run: mvn -B test --file pom.xml
+
+      # package and build
+      - name: Build the application
+        run: | # for running multiple commands
+          mvn clean
+          mvn -B package --file pom.xml
+
+
+
