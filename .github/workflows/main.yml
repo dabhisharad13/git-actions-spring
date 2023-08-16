@@ -4,6 +4,9 @@ on:
   push: # when to Trigger pipeline
     branches: # on which branch to trigger
       - master
+env:
+  USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
 jobs: # Set of Steps that execute on same runner
   build-deploy:
@@ -36,14 +39,14 @@ jobs: # Set of Steps that execute on same runner
           context: . # . is for current path
           dockerfile: Dockerfile
           push: false
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:latest
+          tags: ${{ env.USERNAME }}/git-action-spring:latest
 
       # logging docker hub
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{secrets.DOCKER_HUB_USERNAME}}
-          password: ${{secrets.DOCKER_HUB_ACCESS_CODE}}
+          username: ${{ env.USERNAME }}
+          password: ${{ env.PASSWORD }}
 
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
@@ -51,5 +54,5 @@ jobs: # Set of Steps that execute on same runner
           context: . # . is for current path
           dockerfile: Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:latest
+          tags: ${{ env.USERNAME }}/git-action-spring:latest
 
