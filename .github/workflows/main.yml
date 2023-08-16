@@ -1,8 +1,8 @@
 name: Build & Deploy Spring app
 
 on:
-  push: # When to Trigger pipeline
-    branches: # On which branch to trigger
+  push: # when to Trigger pipeline
+    branches: # on which branch to trigger
       - main
 
 jobs: # Set of Steps that execute on same runner
