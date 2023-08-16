@@ -36,7 +36,7 @@ jobs: # Set of Steps that execute on same runner
           context: . # . is for current path
           dockerfile: Dockerfile
           push: false
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:$(date-'%Y-%m-%d%H-%M-%S')
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:latest
 
       # logging docker hub
       - name: Login to Docker Hub
@@ -51,5 +51,5 @@ jobs: # Set of Steps that execute on same runner
           context: . # . is for current path
           dockerfile: Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:$(date-'%Y-%m-%d%H-%M-%S')
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/git-action-spring:latest
 
